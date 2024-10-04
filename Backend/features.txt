@@ -1,0 +1,25 @@
+//admin
+
+
+admin can login //
+
+admin can view user profile 
+
+admin can block , unblock , delete user.
+
+admin can add other admins. //
+
+
+
+//user 
+
+user can signup //
+
+user can login //
+
+user can create blogs 
+
+user can edit and delete blogs 
+
+user can like and comment other blogs 
+
