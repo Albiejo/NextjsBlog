@@ -17,7 +17,7 @@ user can signup //
 
 user can login //
 
-user can create blogs 
+user can create blogs //
 
 user can edit and delete blogs 
 

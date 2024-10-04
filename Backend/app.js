@@ -7,7 +7,7 @@ const port = process.env.PORT || 3000;
 import userrouter from "./Routes/userRoute.js";
 import adminrouter from "./Routes/adminRoute.js";
 import cookieParser from "cookie-parser";
-
+import blogRoute from "./Routes/blogRoute.js";
 
 
 connectDB();
@@ -20,7 +20,7 @@ app.use(cookieParser());
 
 app.use('/api/v1/user' , userrouter)
 app.use('/api/v1/admin' , adminrouter)
-
+app.use('/api/v1/blog' , blogRoute)
 
 
 app.get('/' , (req,res)=>{
