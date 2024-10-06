@@ -19,7 +19,7 @@ user can login //
 
 user can create blogs //
 
-user can edit and delete blogs 
+user can edit and delete blogs //
 
 user can like and comment other blogs 
 

@@ -52,6 +52,19 @@ class adminController{
             });
         }
     }
+
+
+    async blockUser(){
+        try {
+            const userid = req.params.id;
+            
+        } catch (error) {
+            return res.status(error.statusCode || 500).json({
+                success: false,
+                message: error.message || "An error occurred during user blocking",
+            }); 
+        }
+    }
 }
 
 
