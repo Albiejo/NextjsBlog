@@ -4,7 +4,7 @@ admin login page
 
 admin dashboard page 
 
-admin adding other admins. 
+page for existing admin to  add other admins. 
 
 
 
@@ -16,9 +16,7 @@ user login page
 
 user profile page
 
-user home page // blog listing page 
-
-user profile page 
+user home page where blogs can be listed.
 
 user blog creation page 
 
