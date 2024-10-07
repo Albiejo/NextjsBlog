@@ -1,0 +1,24 @@
+//admin - Pages
+ 
+admin login page 
+
+admin dashboard page 
+
+admin adding other admins. 
+
+
+
+//user 
+
+user signup page 
+
+user login page  
+
+user profile page
+
+user home page // blog listing page 
+
+user profile page 
+
+user blog creation page 
+

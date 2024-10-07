@@ -10,10 +10,8 @@ class blogService {
   async createBlog(blogdata) {
     try {
 
-      console.log(blogdata)
       const newBlog = new Blog(blogdata);
 
-      // Save the blog in the database
       await newBlog.save();
 
       return newBlog;
@@ -44,7 +42,7 @@ class blogService {
   }
 
 
-  async updatePostsService(postid){
+  async updatePostsService(postid , updateData){
     try {
       const post = await Blog.findOne({_id:postid});
       if (!post) {
@@ -87,6 +85,54 @@ class blogService {
       throw new CustomError("Server error during blog deletion", 500);
       }
   }
+
+
+  async addLikesToBlogPost(blogid , userid){
+    try {
+      
+      const updatedPost = await Blog.findByIdAndUpdate(blogid , {$inc:{likes:1}} , {new:true});
+      if(!updatedPost){
+        return null
+      }
+
+      return updatedPost;
+
+    } catch (error) {
+      console.error('Error during blog liking:', error);
+      if (error instanceof CustomError) {
+        throw error; 
+      }
+      throw new CustomError("Server error during blog liking", 500);
+      }
+    }
+
+
+    async addCommentToPost(blogid , userid , comment){
+      try {
+        const blogPost = await Blog.findById(blogid);
+
+        if(!blogPost){
+          return null;
+        }
+
+        blogPost.comments.push({
+          user: userid, 
+          comment: comment,
+          createdAt: Date.now()
+        })
+
+        const updatedPost = await blogPost.save();
+        return updatedPost;
+
+      } catch (error) {
+        console.error('Error during blog commenting:', error);
+        if (error instanceof CustomError) {
+          throw error; 
+        }
+        throw new CustomError("Server error during blog commenting", 500);
+      }
+    }
+  
 
 }
 

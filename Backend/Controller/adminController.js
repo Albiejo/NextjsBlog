@@ -4,7 +4,6 @@ import adminService from "../Services/adminService.js";
 
 
 
-
 class adminController{
 
     //admin login
@@ -54,14 +53,100 @@ class adminController{
     }
 
 
-    async blockUser(){
+    async blockUser(req , res){
         try {
-            const userid = req.params.id;
-            
+            const userid = req.params.userid;
+            const userBlocked  = await adminService.Block(userid);
+            if(userBlocked){
+                return res.status(200).json({
+                    success:true,
+                    message:"blocking successfull",
+                });
+            }else {
+                res.status(404).json({
+                    success: false,
+                    message: "user cannot be blocked.."
+                });
+            }
         } catch (error) {
             return res.status(error.statusCode || 500).json({
                 success: false,
                 message: error.message || "An error occurred during user blocking",
+            }); 
+        }
+    }
+
+
+
+    async GetUser(req , res){
+        try {
+            const userid = req.params.userid;
+
+            const userData  = await adminService.getUserProfile(userid);
+            if (userData) {
+                res.status(200).json({
+                    success: true,
+                    message: "user data fetched successfully",
+                    data: userData
+                });
+            } else {
+                res.status(404).json({
+                    success: false,
+                    message: "user post not found"
+                });
+            }
+        } catch (error) {
+            console.error(error);
+            return res.status(error.statusCode || 500).json({
+                success: false,
+                message: error.message || "An error occurred during user fetcjing",
+            }); 
+        }
+    }
+
+    async UnblockUser(req , res){
+        try {
+            const userid = req.params.userid;
+            const userUnBlocked  = await adminService.UnBlock(userid);
+            if(userUnBlocked){
+                return res.status(200).json({
+                    success:true,
+                    message:"Unblocking successfull",
+                });
+            }else {
+                res.status(404).json({
+                    success: false,
+                    message: "user cannot be Unblocked.."
+                });
+            }
+        } catch (error) {
+            return res.status(error.statusCode || 500).json({
+                success: false,
+                message: error.message || "An error occurred during user Unblocking",
+            }); 
+        }
+    }
+
+
+    async deleteUser(req , res){
+        try {
+            const userid = req.params.userid
+            const userDeleted = await adminService.Deleteuser(userid);
+            if(userDeleted){
+                return res.status(200).json({
+                    success:true,
+                    message:"user proile deletion  successfull",
+                });
+            }else {
+                res.status(404).json({
+                    success: false,
+                    message: "user cannot be deleted.."
+                });
+            }
+        } catch (error) {
+            return res.status(error.statusCode || 500).json({
+                success: false,
+                message: error.message || "An error occurred during user deletion",
             }); 
         }
     }
