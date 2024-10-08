@@ -9,11 +9,12 @@ class blogController{
     async createBlogController(req , res){
         try {
             
-            const { title, content, coverImage, category, tags } = req.body;
+            const { title, content, category, tags } = req.body;
+            const Imagefile = req.file ? req.file.filename : null;
 
             // const userId = req.user.id ;
             const userId ='66ffbb043ea7540d82315763';
-            const blog = await blogService.createBlog({ author:userId , title, content, coverImage, category, tags });
+            const blog = await blogService.createBlog({ author:userId , title, content ,coverImage:Imagefile, category, tags });
             return res.status(201).json({
                 success: true,
                 message: "Blog created successfully",

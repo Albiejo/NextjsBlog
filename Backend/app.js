@@ -3,16 +3,25 @@ import dotenv from 'dotenv';
 dotenv.config();
 // import { notFound , errorHandler } from "./middleware/errorMiddleWare.js";
 import connectDB from './Config/db.js'
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 import userrouter from "./Routes/userRoute.js";
 import adminrouter from "./Routes/adminRoute.js";
 import cookieParser from "cookie-parser";
 import blogRoute from "./Routes/blogRoute.js";
+import cors from 'cors';
+const app=express();
+
+
+app.use(cors({
+    origin: 'http://localhost:3000', // Replace with your frontend's address
+    methods: ['GET', 'POST', 'PUT', 'DELETE' , 'PATCH'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true, // If you need cookies or session data
+  }));
 
 
 connectDB();
 
-const app=express();
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(cookieParser());

@@ -29,6 +29,7 @@ const blogSchema = new mongoose.Schema(
     ],
 
 
+    
     category: {
       type: String,
       enum: ["Technology", "Health", "Lifestyle", "Education", "Business"], // Example categories
