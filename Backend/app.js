@@ -10,6 +10,12 @@ import cookieParser from "cookie-parser";
 import blogRoute from "./Routes/blogRoute.js";
 import cors from 'cors';
 const app=express();
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 
 app.use(cors({
@@ -22,6 +28,7 @@ app.use(cors({
 
 connectDB();
 
+app.use('/cloud_images', express.static(path.join(__dirname, 'cloud_images')));
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(cookieParser());

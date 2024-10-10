@@ -33,11 +33,19 @@ class blogController{
     async getPostsController(req, res){
         try {
             const blogs = await  blogService.getAllPosts();
-            console.log("here",blogs)
+
+            const imageBaseUrl = `${req.protocol}://${req.get('host')}/cloud_images/`;
+
+            const formattedBlogs = blogs.map(blog => ({
+                ...blog._doc, // This spreads the blog fields
+                coverImage: blog.coverImage ? `${imageBaseUrl}${blog.coverImage}` : null
+            }));
+
+
             return res.status(201).json({
                 success: true,
                 message: "Blog fetched successfully",
-                blogs:blogs
+                blogs:formattedBlogs
             });
         } catch (error) {
             console.error(error);
@@ -48,6 +56,7 @@ class blogController{
             });
         }
     }
+    
 
     async updateBlogController(req, res){
         try {

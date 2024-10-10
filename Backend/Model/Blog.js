@@ -28,14 +28,11 @@ const blogSchema = new mongoose.Schema(
       },
     ],
 
-
-    
     category: {
       type: String,
       enum: ["Technology", "Health", "Lifestyle", "Education", "Business"], // Example categories
       required: true,
     },
-
 
     coverImage: {
       type: String, // URL or path to the cover image
@@ -68,7 +65,7 @@ const blogSchema = new mongoose.Schema(
       },
     ],
 
-    
+  
   },
   {
     timestamps: true, // Automatically adds createdAt and updatedAt fields

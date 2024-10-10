@@ -10,13 +10,13 @@ page for existing admin to  add other admins.
 
 //user 
 
-user signup page 
+user signup page //
 
-user login page  
-
+user login page  //
+    
 user profile page
 
-user home page where blogs can be listed.
+user home page where blogs can be listed.//
 
-user blog creation page 
+user blog creation page //
 

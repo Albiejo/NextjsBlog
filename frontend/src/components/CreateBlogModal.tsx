@@ -20,8 +20,6 @@ import { Button,
         };
 
         const handleSubmit = () => {
-        
-          
           const formData = new FormData();
           formData.append('title', title);
           formData.append('content', content);
@@ -30,11 +28,9 @@ import { Button,
           if (image) {
             formData.append('image', image); // Only append the image if one was uploaded
           }
-      
-          // Pass the formData to onSubmit
+
           onSubmit(formData);
-      
-          // Reset form fields
+
           setTitle('');
           setContent('');
           setTags('');
@@ -97,14 +93,20 @@ import { Button,
               <label htmlFor="category" className="block text-sm font-medium text-gray-700">
                 Category
               </label>
-              <input
-                type="text"
+              <select
                 id="category"
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
                 className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
                 required
-              />
+              >
+                <option value="">Select a category</option>
+                <option value="Technology">Technology</option>
+                <option value="Health">Health</option>
+                <option value="Lifestyle">Lifestyle</option>
+                <option value="Education">Education</option>
+                <option value="Business">Business</option>
+              </select>
             </div>
   
             <div className="mt-4">

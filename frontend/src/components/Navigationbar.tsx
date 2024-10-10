@@ -6,12 +6,22 @@ import { useState , useEffect } from "react";
 import CreateBlogModal from "./CreateBlogModal";
 import { createBlog } from "../config.js";
 import { toast } from "react-toastify";
-
+import { useRouter , usePathname } from 'next/navigation';
 import { Try } from "@mui/icons-material";
+import { selectIsAuthenticated  , logout} from '../app/features/auth/authSlice';
+import {  useDispatch,useSelector } from "react-redux";
+
 
 const Navbar = () => {
+
+  const isAuthenticated = useSelector(selectIsAuthenticated);
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const pathName = usePathname()
+  
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [open, setOpen] = useState(false);
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -32,8 +42,20 @@ const Navbar = () => {
     }
   };
 
+    const handleCreateBlogButton=()=>{
+      if (!isAuthenticated &&  pathName !== '/user/login') {
+        router.push('user/login');
+      } else {
+        handleOpen(); 
+      }
+    }
 
-
+  const handleLogout = () => {
+    // Dispatch the logout action to clear authentication state
+    dispatch(logout());
+    // Redirect to home or login page after logout
+    router.push('/');
+  };
 
   return (
     <nav className="bg-black p-4 shadow-xl z-10 sticky top-0 mb-16">
@@ -49,7 +71,7 @@ const Navbar = () => {
           <Button
             className="bg-blue-gray-700 text-white"
             size="lg"
-            onClick={handleOpen}
+            onClick={handleCreateBlogButton}
             placeholder={undefined}
             onPointerEnterCapture={undefined}
             onPointerLeaveCapture={undefined}
@@ -66,7 +88,14 @@ const Navbar = () => {
 
         {/* Right side - Nav links */}
         <div className="hidden sm:flex space-x-4">
-          <Link href={"/login"}>
+          {isAuthenticated ? (<>
+            <Button
+              className="bg-white text-black font-semibold"
+              onClick={handleLogout}  placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}              >
+                Logout
+              </Button>
+          </>) : (<>
+          <Link href={"/user/login"}>
             <Button
               className="bg-white text-black font-semibold"
               placeholder={undefined}
@@ -76,7 +105,7 @@ const Navbar = () => {
               Log in
             </Button>
           </Link>
-          <Link href={"/signup"}>
+          <Link href={"/user/signup"}>
             <Button
               className="bg-white text-black font-semibold"
               placeholder={undefined}
@@ -86,6 +115,7 @@ const Navbar = () => {
               Sign Up
             </Button>
           </Link>
+          </>)}
         </div>
 
         {/* Mobile Menu Button */}
@@ -102,7 +132,7 @@ const Navbar = () => {
       {/* Mobile Menu (only visible when opened) */}
       {isMobileMenuOpen && (
         <div className="sm:hidden mt-4 flex flex-col space-y-2">
-          <Link href={"/login"}>
+          <Link href={"user/login"}>
             <Button
               className="bg-white text-blue-gray-600 font-semibold"
               placeholder={undefined}
@@ -112,7 +142,7 @@ const Navbar = () => {
               Log in
             </Button>
           </Link>
-          <Link href={"/signup"}>
+          <Link href={"user/signup"}>
             <Button
               className="bg-white text-blue-gray-600 font-semibold"
               placeholder={undefined}

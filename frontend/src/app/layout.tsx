@@ -1,13 +1,14 @@
+'use client'
+
 import './globals.css'
 import Navbar from '@/components/Navigationbar'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import store from './store/index'
+import { Provider } from 'react-redux';
 
 
-export const metadata = {
-  title: "Dave's Blog",
-  description: 'Created by Dave Gray',
-}
+
 
 export default function RootLayout({
   children,
@@ -17,9 +18,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="dark:bg-blue-gray-700">
-        <Navbar/>
+        <Provider store={store}>
         <ToastContainer />
+        <Navbar/>
         {children}
+        </Provider>
       </body>
     </html>
   )

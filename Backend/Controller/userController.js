@@ -9,6 +9,7 @@ class userController{
     async userLogin(req , res){
         try {
             const {email , password} = req.body;
+            
             const user = await userService.userLoginService(email , password);
 
             generateToken(res , user._id);
@@ -32,6 +33,8 @@ class userController{
 
     async userRegistration(req , res){
         try {
+
+            
             const {email , password , name} = req.body;
             const newUser =await userService.userRegistration(email , password , name)
             return res.status(201).json({

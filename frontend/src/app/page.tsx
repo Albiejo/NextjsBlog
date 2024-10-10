@@ -6,33 +6,24 @@ import { Button } from "@material-tailwind/react";
 import {BLOG_API_URL} from '../config.js'
 import axios from "axios";
 import { useState , useEffect } from "react";
+import { Metadata } from 'next';
+
+
+type Blog = {
+  _id: string; // Assuming '_id' is used in MongoDB
+  title: string;
+  content: string;
+  author: string;
+  tags: string[];
+  category: string;
+  coverImage: string | null; // Image might be null if not provided
+};
+
 
 
 export default function Home() {
 
-  const blogs = [
-    {
-      id: 1,
-      title: "First Blog",
-      content: "This is the content of the first blog",
-      author: "John Doe",
-      tags: ["Technology", "Next.js"],
-      category: "Web Development",
-      image: "C:/Users/CLOUDESIN/Desktop/Projects/BlogApp/frontend/src/public/images/space1.jpg",
-    },
-    {
-      id: 2,
-      title: "Second Blog",
-      content: "This is the content of the second blog",
-      author: "Jane Doe",
-      tags: ["JavaScript", "Tailwind CSS"],
-      category: "Frontend Development",
-      image: "../public/images/space1.jpg",
-    },
-    // Add more blogs here
-  ];
-
-  const [Blogs , setBlogs] = useState([])
+  const [Blogs , setBlogs] = useState<Blog[]>([])
 
   useEffect(()=>{
     getBlogs();
@@ -41,33 +32,34 @@ export default function Home() {
    const getBlogs = async () => {
     try {
         const res = await axios.get(`${BLOG_API_URL}/posts`);
-        setBlogs(res.data.blogs); // Update state
+        console.log('Blogs fetched:', res.data.blogs);
+        setBlogs(res.data.blogs);
     } catch (error) {
         console.error("Error fetching blogs:", error);
     }
 };
 
 
+
   return (
     <main className="px-6 mx-auto mt-6">
-
-     
 
      <div className="flex flex-col items-center space-y-10">
 
         {
           Blogs.map((blog)=>(
-
-            <div key={blog.id} className="max-w-2xl w-full border-gray-800">
+            
+            <div key={blog._id} className="max-w-2xl w-full border-gray-800">
                 <BlogCard
                   title={blog.title}
                   content={blog.content}
                   author={blog.author}
                   tags={blog.tags}
                   category={blog.category}
-                  image={blog.image}
+                  image={blog.coverImage}
                 />
             </div>
+            
           ))
         }
      </div>

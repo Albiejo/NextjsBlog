@@ -8,7 +8,8 @@ class userService{
 
     async userLoginService(email, password) {
         try {
-          const user = await User.findOne({ email });
+          const user = await User.findOne({email: email });
+
           if (!user) {
             throw new CustomError("email not found" , 403);
           }
@@ -35,6 +36,7 @@ class userService{
       async userRegistration(email, password, name) {
         try {
         const emailExists = await User.findOne({ email:email });
+
         
         if (emailExists) {
           throw new CustomError("email already exists !",403);
@@ -44,9 +46,9 @@ class userService{
           email,
           password,
           name,
-        });
-    
+        });        
         await newUser.save();
+        console.log("here",newUser);
         return newUser;
         } catch (error) {
             if (error instanceof CustomError) {
